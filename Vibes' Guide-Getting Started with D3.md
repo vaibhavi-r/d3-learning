@@ -10,7 +10,7 @@ Read [this][align1] from Scott Murray's simple and effective blog.
 
 Here are the **essential steps** to install and run d3 on your laptop:
 
-I am recording the steps I followed as a complete beginner with no prior installations for d3 or related software.
+I am recording the steps I followed as a complete beginner with no prior installations for d3 or related software. 
 
 **Note:** These instructions are for a **Mac**.
 
@@ -61,29 +61,37 @@ I am recording the steps I followed as a complete beginner with no prior install
 	* [Verify npm, and node install][6]. Type `node -v` and `npm -v` in Terminal. You should see some installed version number.
 
 5. **Start playing!**	
-	*
-	*
-	*
+	* Start from SVG to Bar Chart: [D3 for Mere Mortals][9]
+	* Mike Bostock's famous [Three Little Circles][10] tutorial.
+	* Create a Bar Chart [Part I][11] & [Part II][12]
 
 
 
 
 **Summary of Install Resources**
+
 * Dynamic Graphics: [D3][3]
 * Text Editor: [SublimeText][4]
 * Installation Helper: [Install Homebrew][5]
 * JavaScript Package Manager: [Node & NPM with Homebrew][6]
 * Local Server: [http-server with NPM][7]
 
-
+<!--Setup Tutorials-->
 [align1]: http://alignedleft.com/tutorials/d3/fundamentals
 [align2]: http://alignedleft.com/tutorials/d3/setup
+<!--Official D3 Resources-->
 [3]: https://github.com/d3/d3/releases
 [4]: https://github.com/d3/d3/wiki
+<!--Installation Help-->
 [5]: https://brew.sh/
 [6]: http://blog.teamtreehouse.com/install-node-js-npm-mac
 [7]: https://www.npmjs.com/package/http-server 
 [8]: https://www.dashingd3js.com/d3js-first-steps
+<!--Basic D3 Tutorials-->
+[9]: http://www.recursion.org/d3-for-mere-mortals/
+[10]: https://bost.ocks.org/mike/circles/
+[11]: https://bost.ocks.org/mike/bar/
+[12]: https://bost.ocks.org/mike/bar/2/
 
 
 
