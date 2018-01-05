@@ -4,7 +4,7 @@ Let's get to installing and eventually coding with in D3! Consider this guide as
 Learning a new technology comes with its own host of environments, tools, and neat tricks. It helps to setup smoothly, and worry about the actual learning, instead of grappling with installation errors.
  
 ### So... What is D3?
-Read [this](http://alignedleft.com/tutorials/d3/fundamentals) from Scott Murray's simple and effective blog.
+Read [this][align1] from Scott Murray's simple and effective blog.
 
 ### Okay, Can I D3 now?
 
@@ -14,9 +14,9 @@ I am recording the steps I followed as a complete beginner with no prior install
 
 **Note:** These instructions are for a **Mac**.
 
-1. **Start Setup with Scott's [tutorial] (http://alignedleft.com/tutorials/d3/setup)**.
+1. **Start Setup with Scott's [tutorial][align2]**.
 	* Create a project folder on your laptop.
-	* Download D3 into your project folder from [official repo](https://github.com/d3/d3/releases).
+	* Download D3 into your project folder from [official repo][3].
 	* Create an index.html file.
 	
 	```
@@ -36,37 +36,55 @@ I am recording the steps I followed as a complete beginner with no prior install
 ```
 
 
-	* To test this file, especially with D3, we need a local server!
-	* Suggested local server: http-server
+	* To test this file, with dynamic D3 or JS components, we need a local server!
+	* Suggested local server: **http-server** (Why? It's mentioned on the [official wiki][4])
 
 2. **Set up a local server**
 
-* If you already have http-server, skip ahead to Step 3! 
-* If not, http-server can be installed by NPM, which is automatically installed by Node JS when you install Node JS from HomeBrew! 
+	* If you already have http-server, skip ahead to Step 3! 
+	* If not, http-server can be installed by NPM, which is automatically installed by Node JS when you install Node JS from HomeBrew! 
 	* If this seems unnecessarily complicated (it is!), don't give up. 
 
-	* 	Install Homebrew here 
-	* 	Install 
+		* Install [Homebrew][5]. Type the folllowing in Terminal. `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+		* Install [Node JS & NPM with HomeBrew][6]. Type `brew install node` in Terminal.
+		* Install [http-server][7] with NPM. Type `npm install -g http-server` in Terminal
 
+	* Alternates to http-server include MAMP.
 	
-3. Run the local server
+3. **Run the local server**
    * Type `http-server &` in terminal from the project folder to run the local server.
-   * Your HTML file should be available at[http://localhost:8080/](http://localhost:8080/)
+   * Your dynamic HTML file should run at [http://localhost:8080/](http://localhost:8080/)
+
+4. **Verify your installation** with these steps
+
+	* [Verify HTML+D3 setup][8]  on browser
+	* [Verify npm, and node install][6]. Type `node -v` and `npm -v` in Terminal. You should see some installed version number.
+
+5. **Start playing!**	
+	*
+	*
+	*
 
 
 
 
-**Installation Resources**
+**Summary of Install Resources**
+* Dynamic Graphics: [D3][3]
+* Text Editor: [SublimeText][4]
+* Installation Helper: [Install Homebrew][5]
+* JavaScript Package Manager: [Node & NPM with Homebrew][6]
+* Local Server: [http-server with NPM][7]
 
-* Dynamic Graphics: D3
-* Text Editor: SublimeText
-* Installation Helper: [Install Homebrew]()
-* JavaScript Package Manager: [Node & NPM with Homebrew]()
-* Local Server: [http-server with NPM]()
 
-**Verify your installation** with these steps
+[align1]: http://alignedleft.com/tutorials/d3/fundamentals
+[align2]: http://alignedleft.com/tutorials/d3/setup
+[3]: https://github.com/d3/d3/releases
+[4]: https://github.com/d3/d3/wiki
+[5]: https://brew.sh/
+[6]: http://blog.teamtreehouse.com/install-node-js-npm-mac
+[7]: https://www.npmjs.com/package/http-server 
+[8]: https://www.dashingd3js.com/d3js-first-steps
 
-1. Verify HTML+D3 file on browser
-2. Verify npm, and node install
-3. Verify 
+
+
 
