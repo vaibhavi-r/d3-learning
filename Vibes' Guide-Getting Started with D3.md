@@ -64,6 +64,7 @@ I am recording the steps I followed as a complete beginner with no prior install
 	* Start from SVG to Bar Chart: [D3 for Mere Mortals][9]
 	* Mike Bostock's famous [Three Little Circles][10] tutorial.
 	* Create a Bar Chart [Part I][11] & [Part II][12]
+	* http://christopheviau.com/d3_tutorial/
 
 
 
