@@ -3,12 +3,26 @@
     <head>
         <meta charset="utf-8">
         <title>D3 Test</title>
-        <script type="text/javascript" src="d3/d3.v3.js"></script>
+        <!--script type="text/javascript" src="d3/d3.v3.js"></script-->
+        <script src="https://d3js.org/d3.v5.js"></script>
+
     </head>
     <body>
         <p>Hello World</p>
+        <div id = "rect-demo"> </div>
         <script type="text/javascript">
             // Your beautiful D3 code will go here
-        </script>
+
+          var rectDemo = d3.select("#rect-demo").
+		  append("svg:svg").
+		  attr("width", 400).
+		  attr("height", 300);
+
+		rectDemo.append("svg:rect").
+		  attr("x", 100).
+		  attr("y", 100).
+		  attr("height", 100).
+		  attr("width", 200);
+	    </script>
     </body>
 </html>   
