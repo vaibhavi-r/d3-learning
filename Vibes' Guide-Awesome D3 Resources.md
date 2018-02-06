@@ -18,10 +18,11 @@
 
 ### Visualization Examples
 - D3 [Gallery] (https://github.com/d3/d3/wiki/Gallery)
-- Mike Bostock's [Blocks](https://bl.ocks.org/mbostock)
+- Mike Bostock's Code [Blocks](https://bl.ocks.org/mbostock)
 
 
 ### Inspirational Projects/ Blogs
+- Mike Bostock's [Posts] (https://bost.ocks.org/mike/)
 
 
 ### References while coding
@@ -30,7 +31,6 @@
 - D3 [Wiki Home] (https://github.com/d3/d3/wiki)
 - SVG [Tutorials](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial)
 - SVG [Element Reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Element#SVG_elements_by_category)
-
 
 ### Learning about design
 - FastDesign Article: [Creating a Great StoryBoard] [d1]
