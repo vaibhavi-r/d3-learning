@@ -2,13 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>SVG Example</title>
+    <title>Three Little Circles</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>   
   </head>
+
   <body>
     <svg width="720" height="120">
       <circle cx="40" cy="60" r="10"></circle>
       <circle cx="80" cy="60" r="10"></circle>
       <circle cx="120" cy="60" r="10"></circle>
-    </svg>  
+    </svg> 
+    <script type="text/javascript"> 
+
+        var circle = d3.selectAll("circle");
+        
+        //STEP 1 - Change Fill Color to Blue
+        circle.style("fill", "steelblue"); 
+
+        //STEP 2 - Increase circle size
+        circle.attr("r", "30");            
+        
+        //STEP 3 - Move Circle to Random Position
+        circle.attr("cx", function(){return Math.random()*720; });
+
+        //STEP 4 : Data Join with d
+        /*
+          Data is specified as an array of values; this mirrors the concept of a selection, which is an array of elements. In the code above, the first number (the first datum, 32) is bound to the first circle (the first element, based on the order in which they are defined in the DOM), the second number is bound to the second circle, and so on.
+
+          After data is bound, it is accessible as the first argument to attribute and style functions. By 
+          convention, we typically use the name d to refer to bound data. 
+        */
+        circle.data([32, 57, 112]); //Data Join
+        circle.attr("r", function(d){ return Math.sqrt(d); });  
+
+
+        //STEP 5: Data Join with d,i 
+        /* 
+          There’s a second optional argument to each function you can also use: the index of the element within its selection. The index is often useful for positioning elements sequentially. Again by convention, this is often referred to as i. 
+        */
+        circle.attr("cx", function(d,i){ return i*100 + 30; })
+
+
+        //STEP 6: ENTER Selection (Adding new circle)
+        var svg = d3.select("svg");
+        var circles = svg.selectAll("circle").data([32, 57, 112, 293]); //Data Join with access to enter, update, select
+
+        var circleEnter = circles.enter().append("circle");
+        circleEnter.attr("cy", 60);
+        circleEnter.attr("cx", function(d, i) { return i * 100 + 30; });
+        circleEnter.attr("r", function(d) { return Math.sqrt(d); });
+        circleEnter.style("fill", "red");
+        
+
+
+
+
+
+
+    </script>
+
+    <svg>
+
+    </svg>
 </body>
 </html>
