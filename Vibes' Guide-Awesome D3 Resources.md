@@ -8,28 +8,33 @@
 ### Tutorials to learn D3
 * Books
 * Websites
+	- 
 * Videos
 	- Curran Kelleher's [Youtube Video] [v1] with [Example Slides][v2]. Also on [Github][v3]. (1.5 hours)
-
 	- D3Vienno [Tutorials][v4] on Youtube (20 short videos) 
 
 * Online Courses
 	- Udacity D3 Course
 
 ### Visualization Examples
+- D3 [Gallery] (https://github.com/d3/d3/wiki/Gallery)
+- Mike Bostock's [Blocks](https://bl.ocks.org/mbostock)
 
 
 ### Inspirational Projects/ Blogs
 
 
-### References for coding
-- http://jsbin.com/?html,output
-- https://github.com/d3/d3/releases
-- https://github.com/d3/d3/wiki
+### References while coding
+- JSBin [Online Editor](http://jsbin.com/?html,output)
+- D3 [Github](https://github.com/d3/d3/)
+- D3 [Wiki Home] (https://github.com/d3/d3/wiki)
+- SVG [Tutorials](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial)
+- SVG [Element Reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Element#SVG_elements_by_category)
 
 
 ### Learning about design
-- https://www.fastcodesign.com/1672917/the-8-steps-to-creating-a-great-storyboard
+- FastDesign Article: [Creating a Great StoryBoard] [d1]
+- Mike Bostock's Keynote at OpenVis: [Design is a Search Problem][d2]
 
 **Summary of Install Resources**
 
@@ -37,12 +42,6 @@
 * Mike Bostock's famous [Three Little Circles][10] tutorial.
 * Create a Bar Chart [Part I][11] & [Part II][12]
 * Cristophe Viau's [Tutorial] [13]
-
-* Dynamic Graphics: [D3][3]
-* Text Editor: [SublimeText][4]
-* Installation Helper: [Install Homebrew][5]
-* JavaScript Package Manager: [Node & NPM with Homebrew][6]
-* Local Server: [http-server with NPM][7]
 
 <!--Setup Tutorials-->
 [v1]: https://www.youtube.com/watch?v=8jvoTV54nXw
@@ -52,6 +51,7 @@
 
 
 [d1]: https://www.fastcodesign.com/1672917/the-8-steps-to-creating-a-great-storyboard
+[d2]: https://www.youtube.com/watch?v=fThhbt23SGM
 
 <!--Setup Tutorials-->
 [align1]: http://alignedleft.com/tutorials/d3/fundamentals
