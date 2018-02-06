@@ -16,6 +16,12 @@
 * Online Courses
 	- Udacity D3 Course
 
+
+### Learning about design
+- FastDesign Article: [Creating a Great StoryBoard] [d1]
+- Mike Bostock's Keynote at OpenVis: [Design is a Search Problem][d2]
+
+
 ### Visualization Examples
 - D3 [Gallery] (https://github.com/d3/d3/wiki/Gallery)
 - Mike Bostock's Code [Blocks](https://bl.ocks.org/mbostock)
@@ -29,14 +35,12 @@
 - JSBin [Online Editor](http://jsbin.com/?html,output)
 - D3 [Github](https://github.com/d3/d3/)
 - D3 [Wiki Home] (https://github.com/d3/d3/wiki)
+- D3 [API Reference](https://github.com/d3/d3/blob/master/API.md)
 - SVG [Tutorials](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial)
 - SVG [Element Reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Element#SVG_elements_by_category)
 
-### Learning about design
-- FastDesign Article: [Creating a Great StoryBoard] [d1]
-- Mike Bostock's Keynote at OpenVis: [Design is a Search Problem][d2]
 
-**Summary of Install Resources**
+**Some Tutorials to Check out**
 
 * Start from SVG to Bar Chart: [D3 for Mere Mortals][9]
 * Mike Bostock's famous [Three Little Circles][10] tutorial.
