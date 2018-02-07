@@ -29,7 +29,7 @@
 
 ### Inspirational Projects/ Blogs
 - Mike Bostock's [Posts] (https://bost.ocks.org/mike/)
-
+- Towards Data Science - [15 Visualizations ](https://towardsdatascience.com/15-stunning-data-visualizations-and-what-you-can-learn-from-them-fc5b78f21fb8) 
 
 ### References while coding
 - JSBin [Online Editor](http://jsbin.com/?html,output)
