@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<head>
+	<meta charset="utf-8">
+	<style>
+	</style>
+	<script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<div class="chart"></div>
 
-</style>
-<div class="chart"></div>
-<script src="//d3js.org/d3.v3.min.js"></script>
+	<script>
+		
+	var data = [4, 8, 15, 16, 23, 42];
 
-<script>
 
-var data = [4, 8, 15, 16, 23, 42];
-</script>
+	//Step 1 - Create Simple Div using vanilla JavaScript (without D3)
+	function createDivJS(){
+		var div = document.createElement("div");
+		div.innerHTML = "Hello, world!";
+		document.body.appendChild(div);
+	}
+
+	
+
+
+
+	</script>
+
+</body>
