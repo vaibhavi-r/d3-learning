@@ -27,104 +27,157 @@
     width = +400- margin.left - margin.right,
     height = +400 - margin.top - margin.bottom;
 
-  var svg = d3.select("svg")
-  .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var svg = d3.select("svg").append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
-
-  // add your code here
-
   var dataset = [[5,  20],  [480, 90],  [250, 50],  [100, 33],  [330, 95],  
                   [410, 12],  [475, 44],  [25, 67],  [85,  21],  [220, 88]]; 
 
 
-var xValue = function(d){return d[0];}
-var yValue = function(d){return d[1];}
 
-var xMin = d3.min(dataset, xValue);
-var xMax = d3.max(dataset, xValue);
+  var xValue = function(d){return d[0];}
+  var yValue = function(d){return d[1];}
 
-var yMin = d3.min(dataset, yValue);
-var yMax = d3.max(dataset, yValue);
+  var xMin = d3.min(dataset, xValue);
+  var xMax = d3.max(dataset, xValue);
+
+  var yMin = d3.min(dataset, yValue);
+  var yMax = d3.max(dataset, yValue);
 
 
-var xScale = d3.scaleLinear()
-  .domain([xMin, xMax])
-  .range([0, width]);
-  
-var yScale = d3.scaleLinear()
-  .domain([yMin, yMax])
-  .range([height, 0]);
+  var xScale = d3.scaleLinear()
+    .domain([xMin, xMax])
+    .range([0, width]);
+    
+  var yScale = d3.scaleLinear()
+    .domain([yMin, yMax])
+    .range([height, 0]);
 
-function createCircles( data, xScale, yScale)
-{ 
-  svg.selectAll("circle") 
-        .data(dataset)
-        .enter().append("circle") 
-            .attr("cx", function(d) { return  xScale(d[0]); })
-            .attr("cy", function(d) { return  yScale(d[1]); })
-            .attr("r",  5);
+  var x = function(d) {return xScale(xValue(d));}
+  var y = function(d) {return yScale(yValue(d));}
 
+
+  //CREATE POINTS
+  function createCircles()
+  { 
+    
+    circles = svg.selectAll("circle").data(dataset); //DATA JOIN
+
+    circles.enter() //ENTER
+          .append("circle") 
+          .attr("r",  5)
+      .merge(circles) //ENTER + UPDATE
+           .attr("cx", x)
+           .attr("cy", y);   
+
+    circles.exit().remove(); //EXIT
+  }
+
+  //CREATE AXES
+  function createAxes(){
+    var xAxis = d3.axisBottom().scale(xScale).ticks(10);
+    var yAxis = d3.axisLeft().scale(yScale);
+
+    svg.append('g') //X-AXIS
+    .attr("transform",  "translate(0,"  + height +  ")")
+    .attr('class', 'x axis')
+    .call(xAxis);
+
+    svg.append('g') //Y-AXIS
+    .attr("transform",  "translate(0" +  "0)")
+    .attr('class', 'y axis')
+    .call(yAxis);
+  }
+
+
+  // TRANSITION WITH CIRCLES
+  function doBasicTransitions(){
+    // reset everything to color=black, radius=3
+    circles = svg.selectAll("circle") 
+      .data(dataset)
+      .attr("fill","black")
+      .attr("r",3);
+
+    // transition to magenta with a radius of 6 over 1 seconds
+    transition1 = circles.transition()
+      .duration(1000)
+      .attr("fill","magenta")
+      .attr("r", 6);
+
+      // transition to black with a radius of 3 after a delay of 1 seconds // and make it take 1 seconds again  
+    transition2 = transition1.transition()
+      .delay(1000)
+      .duration(1000)
+      .attr("fill", "black")
+      .attr("r", 3);
+  }
+
+
+  // TRANSITION WITH MOVED CIRCLES
+  function doRandomizedTransitions(){
+
+    // reset everything to color=black, radius=3
+    circles = svg.selectAll("circle") 
+      .data(dataset)
+      .attr("fill","black")
+      .attr("r",3);
+
+    // transition to magenta with a radius of 6 over 1 seconds
+    transition1 = circles.transition()
+      .duration(2000)
+      .attr("fill","magenta")
+      .attr("r", 6);
+
+    //Randomize Points in Dataset
+    console.log(dataset);
+    dataset = createRandomDataset();  
+    console.log(dataset);
+
+    // transition back to black with radius 3
+    circles2 = svg.selectAll("circle") 
+      .data(dataset)
+      .transition()
+      .attr("cx", x)
+      .attr("cy", y)
+      .attr("fill", "black")
+      .attr("r", 3)
+      .delay(2500)
+      .duration(3000);
+ 
+  }
+
+
+  //GENERATE RANDOM DATASET
+  function getRandomInt(max) 
+  {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  function createRandomDataset(){
+    var M = dataset.length;
+    //console.log(M);
+    var datasetRandom = new Array(M);
+
+    for (var i = 0; i < M; i++) 
+    {
+      //console.log(i);
+      datasetRandom[i] = new Array(2);  
+      datasetRandom[i][0] = getRandomInt(xMax);
+      datasetRandom[i][1] = getRandomInt(yMax);
+    }
+    return datasetRandom;
 }
 
-createCircles(dataset, xScale, yScale);
 
-var xAxis = d3.axisBottom().scale(xScale).ticks(10);
-var yAxis = d3.axisLeft().scale(yScale);
+//CALL  FUNCTIONS
+createCircles();
+createAxes();
+//doBasicTransitions();
+doRandomizedTransitions();
 
-svg.append('g')
-.attr("transform",  "translate(0,"  + height +  ")")
-.attr('class', 'x axis')
-.call(xAxis);
-
-svg.append('g')
-.attr("transform",  "translate(0" +  "0)")
-.attr('class', 'y axis')
-.call(yAxis);
+//console.log(dataset);
+//console.log(createRandomDataset());
 
 
-
-
-// reset everything to color=black, radius=3
-circles = svg.selectAll("circle") 
-  .data(dataset)
-  .attr("fill","black")
-  .attr("r",3);
-
-// transition to magenta with a radius of 6 over 1 seconds
-transition1 = circles.transition()
-  .duration(1000)
-  .attr("fill","magenta")
-  .attr("r", 6);
-
-// transition to black with a radius of 3 after a delay of 1 seconds // and make it take 1 seconds again  
-transition2 = transition1.transition()
-  .delay(1000)
-  .duration(1000)
-  .attr("fill", "black")
-  .attr("r", 3);
-
-
-function getRandomInt(max) 
-{
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-
-var M = dataset.length;
-
-var datasetRandom = new Array(M);
-
-for (var i = 0; i < M; i++) {
-  datasetRandom[i] = new Array(2);  
-  datasetRandom[i][0] = getRandomInt(xMax);
-  datasetRandom[i][1] = getRandomInt(yMax);
-}
-
-console.log(getRandomInt(xMin));
-console.log(datasetRandom);
-dataset = datasetRandom;
-
-createCircles(datasetRandom, xScale, yScale);
 
 
 </script>
