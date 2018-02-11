@@ -14,18 +14,16 @@
 }
 
 .symbol:hover{
-  fill: red;
+  fill: red;  
 }
-
-
 
 div.tooltip{
   position: absolute;         
-  text-align: center;         
-  width: 60px;                    
-  height: 28px;                               
+  text-align: left;         
+  width: 120px;                    
+  height: 30px;                               
   font: 12px sans-serif;      
-  background: lightsteelblue;         
+  background: lightsteelblue; 
 }
 
 </style>
@@ -75,9 +73,11 @@ function ready(error, u, c) {
       .datum(topojson.feature(states, states.objects.usStates))
       .attr("d", path);
 
+
+  //Add empty div for tooltip
   var div = d3.select("body").append("div")
             .attr("class", "tooltip")
-            .style("display", none);
+            .style("display", "none");
 
 
   // draw the symbols on top
@@ -87,26 +87,26 @@ function ready(error, u, c) {
       		.attr("class", "symbol")
       		.attr("fill","green")
       		.attr("d", path.pointRadius(function(d) { return 10 }))
-          .on("mouseover", mouseover)
-          .on("mousemove", mousemove)
-          .on("mouseout", mouseout);
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);
+}
 
-  function mouseover() {
-    div.style("display", "inline");
-    recolor("red");
+  //MOUSEOVER
+  function displayTooltip(d)
+  {
+    var tooltip = d3.select(".tooltip");           
+    tooltip.style("display", "inline")
+      .text(d.properties.name + "\nPopulation " + d.properties.population)
+       .style("left", (d3.event.pageX + 10) + "px")
+       .style("top", (d3.event.pageY + 10) + "px");
+
   }
 
-function mousemove() {
-    div.text(d3.event.pageX + ", " + d3.event.pageY)
-       .style("left", (d3.event.pageX - 34) + "px")
-       .style("top", (d3.event.pageY - 12) + "px");
-    recolor("blue");
-}
-
-function mouseout() {
-    div.style("display", "none");
-    recolor("green");
-}
+//MOUSEOUT
+function hideTooltip() {
+   var div = d3.select(".tooltip")
+            .style("display", "none");
+          }
 
 function recolor(color) {
     // grab the symbol objects and modify their color 
@@ -114,8 +114,6 @@ function recolor(color) {
      svg.selectAll(".symbol")
         .attr("fill",color);
 }
-
-
    
 </script>
 

@@ -25,6 +25,7 @@
 <script src="https://d3js.org/d3-dsv.v0.3.min.js"></script>
 <script src="https://d3js.org/d3-request.v0.4.min.js"></script>
 <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+
 <script>
 
 var width = 960,
@@ -71,13 +72,11 @@ function ready(error, u, c) {
 }
 
 function recolor(color) {
-
   // grab the symbol objects and modify their color 
   // notice we don't need "enter" or "append" the objects are already there
    svg.selectAll(".symbol")
       .attr("fill",color);
 }
-
    
 
 </script>
