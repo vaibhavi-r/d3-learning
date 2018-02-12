@@ -1,0 +1,242 @@
+<html>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+.symbol {
+  fill-opacity: .8;
+  stroke: #fff;
+}
+
+.symbol:hover{
+  fill: red;  
+}
+
+div.tooltip{
+  position: absolute;         
+  text-align: left;         
+  width: 120px;                    
+  height: 30px;                               
+  font: 12px sans-serif;      
+  background: lightsteelblue; 
+}
+
+</style>
+<body>
+<!--Rather than loading v3 or v4, loading individual modules to ensure compatibility with v4 functions (loads newest version of each)-->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale.v2.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://d3js.org/d3-selection.v1.min.js"></script>
+<script src="https://d3js.org/d3-array.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3-collection.v0.1.min.js"></script>
+<script src="https://d3js.org/d3-dispatch.v0.4.min.js"></script>
+<script src="https://d3js.org/d3-dsv.v0.3.min.js"></script>
+<script src="https://d3js.org/d3-request.v0.4.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var projection = d3.geoAlbersUsa();
+var path = d3.geoPath()
+	.projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+// load up the json files, and when we're done, call ready
+d3.queue()
+    .defer(d3_request.json, "states.json")
+    .defer(d3_request.json, "us-state-centroids.json")
+    .await(ready);
+
+// keep these around for later
+var us,centroid;
+var tooltip;
+
+function ready(error, u, c) {
+
+  // store the values so we can use them later
+   states = u
+   centroid = c
+
+  // draw the states
+  svg.append("path")
+      .attr("class", "states")
+      .datum(topojson.feature(states, states.objects.usStates))
+      .attr("d", path);
+
+
+  //Add empty div for tooltip
+  var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("display", "none");
+  tooltip = div;
+
+
+  // draw the symbols on top
+  	svg.selectAll(".symbol")
+      		.data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+    		.enter().append("path")
+      		.attr("class", "symbol")
+      		.attr("fill","green")
+      		.attr("d", path.pointRadius(function(d) { return 10 }))
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);
+}
+
+  //MOUSEOVER
+  function displayTooltip(d)
+  {
+    tooltip.style("display", "inline")
+      .text(d.properties.name + "\nPopulation " + d.properties.population)
+       .style("left", (d3.event.pageX + 10) + "px")
+       .style("top", (d3.event.pageY + 10) + "px");
+
+  }
+
+//MOUSEOUT
+function hideTooltip() {
+   tooltip.style("display", "none");
+          }
+
+function recolor(color) {
+    // grab the symbol objects and modify their color 
+    // notice we don't need "enter" or "append" the objects are already there
+     svg.selectAll(".symbol")
+        .attr("fill",color);
+}
+
+
+
+function reset(){
+    console.log("Reset");
+    var symbols = svg.selectAll(".symbol").remove(); //Remove all DOM elements, Selection is not null
+
+    console.log("Removed Symbols");
+    symbols.data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+    .enter().append("path")
+          .attr("class", "symbol")
+          .attr("fill","green")
+          .attr("d", path.pointRadius(function(d) { return 10 }))
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);
+
+    console.log("Added Symbols");
+}
+
+
+function getExtent(){
+  var popValue = function(d){ return +d.properties.population; }; //Accessor
+
+  console.log(d3.extent(centroid, popValue));
+  return d3.extent(centroid, popValue); 
+
+}
+
+var popExtent = [400000, 33000000]
+console.log(popExtent);
+
+console.log(centroid);
+console.log(centroid.properties);
+console.log(centroid.properties.population);
+
+//console.log(getExtent());
+
+function mapPopToColor(){
+    console.log("Mapping Population to Color");
+
+    var colorScale = d3.scaleLog()
+                     .domain(popExtent)
+                     .range(["green", "blue"]);
+
+    var symbols = svg.selectAll(".symbol").remove(); //Remove all DOM elements, Selection is not null
+    console.log("Removed Symbols");
+
+
+    symbols.data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+        .enter().append("path")
+          .attr("class", "symbol")
+          .attr("fill", function(d) {return colorScale(d.properties.population); })
+          .attr("d", path.pointRadius(function(d) { return 10 }))
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);
+    console.log("Added Symbols");
+
+}
+
+
+
+function mapPopToSize(){
+    console.log("Mapping Population to Size");
+
+    var sizeMap = d3.scaleSqrt()
+                  .domain(popExtent)
+                  .range([5,20]);
+
+    var symbols = svg.selectAll(".symbol").remove(); //Remove all DOM elements, Selection is not null
+    console.log("Removed Symbols");
+
+     symbols.data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+        .enter().append("path")
+          .attr("class", "symbol")
+          .attr("fill","orange")
+          .attr("d", path.pointRadius(function(d) { return sizeMap(d.properties.population); }))
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);   
+    console.log("Added Symbols");
+
+}
+
+
+
+function mapPopToSizeAndColor(){
+    console.log("Mapping Population to Size and Color");
+    var sizeMap = d3.scaleSqrt()
+                  .domain(popExtent)
+                  .range([5,20]);
+
+    var colorScale = d3.scaleLog()
+                     .domain(popExtent)
+                     .range(["green", "blue"]);
+
+    console.log(colorScale("4000000"));
+    console.log(colorScale("200000000"));
+
+
+    var symbols = svg.selectAll(".symbol").remove(); //Remove all DOM elements, Selection is not null
+    console.log("Removed Symbols");
+
+    symbols.data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+        .enter().append("path")
+          .attr("class", "symbol")
+          .attr("fill", function(d) {return colorScale(d.properties.population); })
+          .attr("d", path.pointRadius(function(d) { return sizeMap(d.properties.population); }))
+          .on("mouseover", function(d) { displayTooltip(d); })
+          .on("mouseout", hideTooltip);   
+    console.log("Added Symbols");
+
+}
+
+   
+</script>
+<FORM><INPUT TYPE="Button" value="make it blue" onclick="recolor('blue')"/> 
+<INPUT TYPE="Button" value="reset" onclick="reset()"/>
+<INPUT TYPE="Button" value="map population to color" onclick="mapPopToColor()"/>
+<INPUT TYPE="Button" value="map population to size" onclick="mapPopToSize()"/>
+<INPUT TYPE="Button" value="map population to color and size" onclick="mapPopToSizeAndColor()"/>
+</FORM>
+</body>
+</html>
+
