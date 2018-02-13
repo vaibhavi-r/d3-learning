@@ -166,8 +166,6 @@ function filterCriteria(d){
 }
 
 
-
-
 function filterType(mtype) {
     console.log("Passed Value to DropDown:", mtype);
     var res = patt.test(mtype); //boolean
@@ -187,9 +185,6 @@ function filterType(mtype) {
     }
 
 }//End Filter Type
-
-
-
 
 console.log("Max Volume", maxVol);
 
