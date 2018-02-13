@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 11px sans-serif;
+}
+
+.axis line,
+.axis text {
+  font: 11px sans-serif;
+}
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+</style>
+<body>
+<link href="style.css" rel="stylesheet">
+<script src="http://d3js.org/d3.v4.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+<div id="layout">
+	<div id="title">
+		<p>Stocks ScatterPlot </p>
+	</div>
+
+	<div id="visualization">
+		<svg class="chart"></svg>
+		<script src="step2.js"></script>
+  </div>
+
+  <div id="filters">
+      <label for="type">Type:</label> <!--Filter Section For 'Type' DropDown  -->
+      <input type="text" id="mytype" readonly style="border:0; color:#f6931f; font-weight:bold;">
+      
+      <select id="typeselectform"> 
+          <option value="all">All</option>
+          <option value="tech">Tech.</option>
+          <option value="transp">Transp.</option>
+          <option value="retail">Retail</option>
+          <option value="fastfood">Fastfood</option>
+          <option value="pharm">Pharm.</option>
+      </select>
+
+      <script>
+        document.getElementById("typeselectform").onchange =function(){filterType(this.value);}
+      </script>
+
+
+
+
+
+	</div>
+
+
+</body>
+</html>
+
