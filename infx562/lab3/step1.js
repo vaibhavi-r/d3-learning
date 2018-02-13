@@ -11,6 +11,7 @@ var maxeValue;
 var volRange;
  //start with the type set to all, changes this variable everytime the dropdown for type is changed
 
+console.log('Reading Data')
 d3.csv("stocks.csv", function(error, stocks) {
 //read in the data
   if (error) return console.warn(error);
@@ -29,6 +30,7 @@ d3.csv("stocks.csv", function(error, stocks) {
 
 
 //all the data is now loaded, so draw the initial vis
+  console.log('Drawing Visualization')
   drawVis(dataset);
 
 });
@@ -87,28 +89,62 @@ var y = d3.scaleLinear()
       .text("True Value");
 
 
-function drawVis(dataset) { //draw the circiles initially and on each interaction with a control
+function drawVis(dataset) { //draw the circles initially and on each interaction with a control
 
 	var circle = chart.selectAll("circle")
 	   .data(dataset);
 
+  var tooltipText = function(d) {return "Price: " + d.price + "<br/>eValue: "  + d.eValue + "<br/>Vol: " + d.vol + "<br/>Delta: " + d.delta}
+
+  console.log('Update')
 	circle
     	  .attr("cx", function(d) { return x(d.price);  })
     	  .attr("cy", function(d) { return y(d.eValue);  })
-     	  .style("fill", function(d) { return col(d.type); });
+     	  .style("fill", function(d) { return col(d.type); })
+        .on("mouseover", function(d) {    
+            tooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            tooltip.html(tooltipText(d))  
+                .style("left", (d3.event.pageX +5) + "px")   
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            tooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });;
 
+  console.log('Exit')
 	circle.exit().remove();
 
+  console.log('Enter')
 	circle.enter().append("circle")
     	  .attr("cx", function(d) { return x(d.price);  })
     	  .attr("cy", function(d) { return y(d.eValue);  })
     	  .attr("r", 4)
     	  .style("stroke", "black")
-     	   .style("fill", function(d) { return col(d.type); })
-    	   .style("opacity", 0.5);
-}
+     	  .style("fill", function(d) { return col(d.type); })
+    	  .style("opacity", 0.5)
+        .on("mouseover", function(d) {    
+            tooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            tooltip.html(tooltipText(d))  
+                .style("left", (d3.event.pageX +5) + "px")   
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            tooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
 
 
+} //End Draw Vis
+
+          
 
 function filterType(mtype) {
+
 }
